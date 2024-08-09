@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Job Organization App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to The Job Organization App</h1>
+        <div class="button-container">
+            <button onclick="showScreen('createJob')">Create a New Job</button>
+            <button onclick="showScreen('inspectJob')">Inspect a Job</button>
+            <button onclick="showScreen('checkInJob')">Check In Job</button>
+            <button onclick="promptPassword()">Delete Jobs</button>
+            <button onclick="showScreen('options')">Options</button>
+        </div>
+
+        <div id="createJob" class="screen">
+            <h2>Create a New Job</h2>
+            <label for="jobNumber">Job Number:</label>
+            <input type="text" id="jobNumber" oninput="validateJobNumber(this)">
+            <label for="description">Description:</label>
+            <input type="text" id="description">
+            <label for="location">Location:</label>
+            <select id="location" class="locationDropdown"></select>
+            <button onclick="createJob()">Save Job</button>
+        </div>
+
+        <div id="inspectJob" class="screen">
+            <h2>Inspect a Job</h2>
+            <div class="tableContainer">
+                <div class="tableRow tableSearch">
+                    <div class="tableCell">
+                        <input type="text" id="inspectSearchJobNumber" placeholder="Search job number..." onkeyup="searchJobs('inspectJob')">
+                    </div>
+                    <div class="tableCell">
+                        <input type="text" id="inspectSearchDescription" placeholder="Search job description..." onkeyup="searchJobs('inspectJob')">
+                    </div>
+                    <div class="tableCell"></div>
+                    <div class="tableCell"></div>
+                </div>
+                <div class="tableRow tableHeader">
+                    <div class="tableCell">Job Number</div>
+                    <div class="tableCell">Description</div>
+                    <div class="tableCell">Location</div>
+                    <div class="tableCell">Action</div>
+                </div>
+                <div id="inspectTable"></div>
+            </div>
+            <div id="paginationControls" class="pagination-controls">
+                <button id="prevPage" onclick="prevPage()">Previous</button>
+                <span id="pageNumbers"></span>
+                <button id="nextPage" onclick="nextPage()">Next</button>
+            </div>
+        </div>
+
+        <div id="checkInJob" class="screen">
+            <h2>Check In Job</h2>
+            <div class="tableContainer">
+                <div class="tableRow tableSearch">
+                    <div class="tableCell">
+                        <input type="text" id="checkInSearchJobNumber" placeholder="Search job number..." onkeyup="searchJobs('checkInJob')">
+                    </div>
+                    <div class="tableCell">
+                        <input type="text" id="checkInSearchDescription" placeholder="Search job description..." onkeyup="searchJobs('checkInJob')">
+                    </div>
+                    <div class="tableCell"></div>
+                    <div class="tableCell"></div>
+                </div>
+                <div class="tableRow tableHeader">
+                    <div class="tableCell">Job Number</div>
+                    <div class="tableCell">Description</div>
+                    <div class="tableCell">New Location</div>
+                    <div class="tableCell">Who checked this out?</div>
+                    <div class="tableCell">Action</div>
+                </div>
+                <div id="checkInTable"></div>
+            </div>
+            <div id="paginationControls" class="pagination-controls">
+                <button id="prevPage" onclick="prevPage()">Previous</button>
+                <span id="pageNumbers"></span>
+                <button id="nextPage()" onclick="nextPage()">Next</button>
+            </div>
+        </div>
+
+        <div id="deleteJobs" class="screen">
+            <h2>Delete Jobs</h2>
+            <div class="tableContainer">
+                <div class="tableRow tableSearch">
+                    <div class="tableCell">
+                        <input type="text" id="deleteSearchJobNumber" placeholder="Search job number..." onkeyup="searchJobs('deleteJobs')">
+                    </div>
+                    <div class="tableCell">
+                        <input type="text" id="deleteSearchDescription" placeholder="Search job description..." onkeyup="searchJobs('deleteJobs')">
+                    </div>
+                    <div class="tableCell"></div>
+                    <div class="tableCell"></div>
+                </div>
+                <div class="tableRow tableHeader">
+                    <div class="tableCell">Job Number</div>
+                    <div class="tableCell">Description</div>
+                    <div class="tableCell">Location</div>
+                    <div class="tableCell">Action</div>
+                </div>
+                <div id="deleteJobTable"></div>
+            </div>
+            <div id="paginationControls" class="pagination-controls">
+                <button id="prevPage" onclick="prevPage()">Previous</button>
+                <span id="pageNumbers"></span>
+                <button id="nextPage" onclick="nextPage()">Next</button>
+            </div>
+        </div>
+
+        <div id="options" class="screen">
+            <h2>Options</h2>
+            <label for="currentPassword">Current Password:</label>
+            <input type="password" id="currentPassword">
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword">
+            <button onclick="changePassword()">Change Password</button>
+            <h3>Add Location</h3>
+            <label for="newLocationName">New Location:</label>
+            <input type="text" id="newLocationName">
+            <button onclick="addLocation()">Add Location</button>
+            <h3>Delete Location</h3>
+            <select id="deleteLocationDropdown" class="locationDropdown"></select>
+            <button onclick="deleteLocation()">Delete Location</button>
+            <h3>Add Names for Check Out</h3>
+            <label for="newName">New Name:</label>
+            <input type="text" id="newName">
+            <button onclick="addName()">Add Name</button>
+            <h3>Delete Name</h3>
+            <select id="deleteNameDropdown"></select>
+            <button onclick="deleteName()">Delete Name</button>
+        </div>
+
+        <!-- Modal for Check Out -->
+        <div id="checkoutModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Check Out Job</h2>
+                <label for="checkoutName">Who is checking this out?</label>
+                <input type="text" id="checkoutNameSearch" onkeyup="filterNames()">
+                <select id="checkoutNameDropdown"></select>
+                <button onclick="confirmCheckout()">Confirm</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
