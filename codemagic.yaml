@@ -13,5 +13,7 @@ workflows:
           xcodebuild -workspace ios/FloorOrganizer.xcworkspace -scheme FloorOrganizer -sdk iphoneos -configuration Release archive -archivePath $CM_BUILD_DIR/FloorOrganizer.xcarchive
     artifacts:
       - build/ios/**/*.app
-    ios:
+    app_store_connect:
+      apple_id: michaelcoy0115@gmail.com
+      app_specific_password: Michaelcoy03
       export_method: app-store
