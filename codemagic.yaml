@@ -1,4 +1,4 @@
-# Unique identifier: Attempt 001
+# Unique identifier: Attempt 002
 workflows:
   ios:
     name: iOS Workflow
@@ -14,5 +14,5 @@ workflows:
           xcodebuild -workspace ios/FloorOrganizer.xcworkspace -scheme FloorOrganizer -sdk iphoneos -configuration Release archive -archivePath $CM_BUILD_DIR/FloorOrganizer.xcarchive
     artifacts:
       - build/ios/**/*.app
-    export:
+    distribution:
       method: app-store
