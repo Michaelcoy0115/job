@@ -1,15 +1,16 @@
 workflows:
-  ios-workflow:
+  ios:
     name: iOS Workflow
     environment:
       xcode: latest
-    script:
+    scripts:
       - name: Install dependencies
         script: |
           gem install cocoapods
           pod install
       - name: Build the app
-        script: xcodebuild -workspace ios/Floor Organizer.xcworkspace -scheme Floor Organizer-sdk iphoneos -configuration Release archive -archivePath $CM_BUILD_DIR/Floor Organizer.xcarchive
+        script: |
+          xcodebuild -workspace ios/FloorOrganizer.xcworkspace -scheme FloorOrganizer -sdk iphoneos -configuration Release archive -archivePath $CM_BUILD_DIR/FloorOrganizer.xcarchive
     artifacts:
       - build/ios/**/*.app
     ios:
